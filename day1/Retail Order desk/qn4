@@ -1,1 +1,41 @@
+**Stack — Undo the last order edit**
+#PESUDOCODE
+START
+    CREATE an empty stack
+    PUSH "Edit order 1001"
+    PUSH "Edit order 1002"
+    SET undone = POP stack
+    DISPLAY undone
+END
 
+#CODE
+stack = []
+stack.append("Edit order 1001")
+stack.append("Edit order 1002")
+undo = stack.pop()
+print("Undo:", undo)
+print("Remaining edits:", stack)
+
+
+
+**Queue — Dispatch orders in arrival order**
+#PSEUDOCODE
+START
+    CREATE an empty queue
+    ENQUEUE order 1001
+    ENQUEUE order 1002
+    ENQUEUE order 1003
+    SET dispatched = DEQUEUE queue
+    DISPLAY dispatched
+    DISPLAY remaining queue
+END
+
+#CODE
+from collections import deque
+queue = deque()
+queue.append(1001)
+queue.append(1002)
+queue.append(1003)
+dispatched = queue.popleft()
+print("Dispatched order:", dispatched)
+print("Remaining orders:", list(queue))
