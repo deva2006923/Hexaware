@@ -1,1 +1,106 @@
+#PESUDOCODE FOE BUBBLE SORT
+START
+    READ orders
+    SET n = length(orders)
 
+    FOR i = 0 TO n - 2
+        FOR j = 0 TO n - i - 2
+            IF orders[j].amount < orders[j + 1].amount
+                SWAP orders[j] AND orders[j + 1]
+            END IF
+        END FOR
+
+        DISPLAY current pass
+    END FOR
+
+    DISPLAY sorted orders
+END
+
+
+#PESUDOCODE FOE MERGE SORT
+MERGE_SORT(orders)
+    IF length(orders) <= 1
+        RETURN orders
+    END IF
+
+    DIVIDE orders into left half and right half
+
+    left = MERGE_SORT(left)
+    right = MERGE_SORT(right)
+
+    RETURN MERGE(left, right)
+END
+
+
+MERGE(left, right)
+    CREATE empty result list
+
+    WHILE both lists contain elements
+        IF left amount >= right amount
+            ADD left element to result
+            MOVE left pointer
+        ELSE
+            ADD right element to result
+            MOVE right pointer
+        END IF
+    END WHILE
+
+    ADD all remaining elements
+    RETURN result
+END
+
+
+#CODE
+
+import csv
+
+with open("orders.csv", "r") as file:
+    orders = list(csv.DictReader(file))
+
+
+# Bubble Sort
+def bubble(data):
+    arr = data.copy()
+    n = len(arr)
+
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+            if int(arr[j]["amount"]) < int(arr[j + 1]["amount"]):
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+    return arr
+
+
+# Merge Sort
+def merge(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge(arr[:mid])
+    right = merge(arr[mid:])
+    result = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if int(left[i]["amount"]) >= int(right[j]["amount"]):
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+
+bubble_result = bubble(orders)
+merge_result = merge(orders)
+print([int(order["amount"]) for order in merge_result])
+builtin_result = sorted(
+    orders,
+    key=lambda order: int(order["amount"]),
+    reverse=True
+)
+print([int(order["amount"]) for order in builtin_result])
