@@ -1,1 +1,98 @@
+#pesudocode for linear search
+
+START
+    READ orders.csv
+    SET target = 1004
+
+    FOR each order in orders
+        IF order.orderId == target
+            DISPLAY order
+            STOP SEARCH
+        END IF
+    END FOR
+
+    IF order is not found
+        DISPLAY "Order not found"
+    END IF
+END
+
+
+
+
+#pesudocode for bineary search
+
+
+START
+    READ orders.csv
+    SORT orders by orderId in ascending order
+
+    SET target = 1004
+    SET low = 0
+    SET high = length(orders) - 1
+
+    WHILE low <= high
+        SET mid = (low + high) // 2
+
+        IF orders[mid].orderId == target
+            DISPLAY orders[mid]
+            STOP SEARCH
+        ELSE IF orders[mid].orderId < target
+            SET low = mid + 1
+        ELSE
+            SET high = mid - 1
+        END IF
+    END WHILE
+
+    DISPLAY "Order not found" if no match
+END
+
+
+
+
+#CODE FOR LINEAR SEARCH
+
+import csv
+import time
+
+# Read orders from CSV
+with open("orders.csv", "r") as file:
+    orders = list(csv.DictReader(file))
+
+
+# Linear Search
+def linear_search(orders, target):
+    for order in orders:
+        if int(order["orderId"]) == target:
+            return order
+    return None
+
+
+# Binary Search
+def binary_search(orders, target):
+    sorted_orders = sorted(
+        orders, key=lambda order: int(order["orderId"])
+    )
+
+    low = 0
+    high = len(sorted_orders) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        mid_id = int(sorted_orders[mid]["orderId"])
+
+        if mid_id == target:
+            return sorted_orders[mid]
+        elif mid_id < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return None
+
+
+target = 1004
+linear_result = linear_search(orders, target)
+binary_result = binary_search(orders, target)
+print("Linear Search Result:", linear_result)
+print("\nBinary Search Result:", binary_result)
 
