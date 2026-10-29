@@ -1,1 +1,25 @@
+#GREEDY METHOD'S CODE
+coins = [1, 3, 4]
+amt = 6
 
+count = 0
+
+for i in sorted(coins, reverse=True):
+    while amt >= i:
+        amt -= i
+        count += 1
+
+print(count)
+
+
+
+#DYNAMIC METHOD'S CODE
+coins = [1, 3, 4]
+amt = 6
+dp = [float("inf")] * (amount + 1)
+dp[0] = 0
+for i in range(1, amt + 1):
+    for j in coins:
+        if j <= value:
+            dp[i] = min(dp[i],dp[i - j] + 1)
+print(dp[amt])
