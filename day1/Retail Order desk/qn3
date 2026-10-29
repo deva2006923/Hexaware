@@ -1,0 +1,33 @@
+#PESUDOCODE 
+START
+    READ orders.csv
+    CREATE an empty set called seen
+
+    FOR each order in orders
+        SET id = order.orderId
+
+        IF id exists in seen
+            PRINT "Duplicate Order ID:", id
+        ELSE
+            ADD id to seen
+        END IF
+    END FOR
+END
+
+#CODE
+import csv
+with open("orders.csv", "r") as file:
+    orders = list(csv.DictReader(file))
+seen = set()
+duplicate_found = False
+for order in orders:
+    id = order["orderId"]
+
+    if id in seen:
+        print("Duplicate Order ID:",id)
+        duplicate_found = True
+    else:
+        seen.add(id)
+
+if not duplicate_found:
+    print("No duplicate order IDs found.")
